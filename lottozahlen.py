@@ -1,46 +1,36 @@
 import random
 
-zufallszahlen: list[int] = []
-getippte_zahlen: list[int] = []
-richtige: list[int] = []
-
-# Benutzereingabe: 6 Lottozahlen
-fertig_getippt: bool = False
+MAX_ZAHLEN: int = 6
 print("Geben Sie 6 Zahlen zwischen 1 und 49 ein.")
-eingabe_counter: int = 1
-while not fertig_getippt:
+
+getippte_zahlen: list[int] = []
+while len(getippte_zahlen) < MAX_ZAHLEN:
     try:
-        zahl: int = int(input(f"Ihre {eingabe_counter}. Zahl bitte: "))
-        if zahl not in getippte_zahlen and 0 < zahl < 50:
-            getippte_zahlen.append(zahl)
-            eingabe_counter += 1
+        zahl: int = int(input(f"Ihre {len(getippte_zahlen) + 1}. Zahl bitte: "))
+
+        if zahl < 1 or zahl > 49:
+            print("Diese Zahl liegt außerhalb des erlaubten Bereichs.")
+        elif zahl in getippte_zahlen:
+            print("Diese Zahl haben Sie bereits getippt.")
         else:
-            if zahl in getippte_zahlen:
-                print("Diese Zahl haben Sie bereits getippt.")
-            if zahl < 1 or zahl > 49:
-                print("Diese Zahl liegt außerhalb des erlaubten Bereichs.")
+            getippte_zahlen.append(zahl)
     except ValueError:
         print("Geben Sie bitte eine Zahl ein.")
-    if len(getippte_zahlen) == 6:
-        fertig_getippt = True
+
 print(getippte_zahlen)
 
-# Zufallszahlen erzeugen
-fertig_zufallszahlen_erzeugen: bool = False
-while not fertig_zufallszahlen_erzeugen:
+zufallszahlen: list[int] = []
+while len(zufallszahlen) < MAX_ZAHLEN:
     zufallszahl: int = random.randint(1, 49)
     if zufallszahl not in zufallszahlen:
         zufallszahlen.append(zufallszahl)
-    if len(zufallszahlen) == 6:
-        fertig_zufallszahlen_erzeugen = True
+
 print(zufallszahlen)
 
-# Anzahl richtiger Tipps testen.
-# Richtige Tipps in eine neue Liste schreiben.
-counter: int = 0
-while counter < 6:
-    if getippte_zahlen[counter] in zufallszahlen:
-        richtige.append(getippte_zahlen[counter])
-    counter += 1
-print(f"Sie haben {richtige} Richtige.")
-print(f"Sie haben folgende Zahl(en) richtig geraten: {richtige}")
+richtige: list[int] = []
+for zahl in getippte_zahlen:
+    if zahl in zufallszahlen:
+        richtige.append(zahl)
+
+print(f"Sie haben {len(richtige)} Richtige.")
+print(f"Diese Zahlen haben Sie richtig geraten: {richtige}")
