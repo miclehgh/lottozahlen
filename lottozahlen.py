@@ -1,10 +1,9 @@
 import random
 
-MAX_ZAHLEN: int = 6
 print("Geben Sie 6 Zahlen zwischen 1 und 49 ein.")
 
 getippte_zahlen: list[int] = []
-while len(getippte_zahlen) < MAX_ZAHLEN:
+while len(getippte_zahlen) < 6:
     try:
         zahl: int = int(input(f"Ihre {len(getippte_zahlen) + 1}. Zahl bitte: "))
 
@@ -20,7 +19,7 @@ while len(getippte_zahlen) < MAX_ZAHLEN:
 print(getippte_zahlen)
 
 zufallszahlen: list[int] = []
-while len(zufallszahlen) < MAX_ZAHLEN:
+while len(zufallszahlen) < 6:
     zufallszahl: int = random.randint(1, 49)
     if zufallszahl not in zufallszahlen:
         zufallszahlen.append(zufallszahl)
